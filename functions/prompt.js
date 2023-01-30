@@ -24,7 +24,7 @@ exports.handler = async (event) => {
   console.log('Got API KEY: ', apiKey.replace(/./g, '*'))
 
   try {
-    const { data } = await request(
+    const { body: bodyStr } = await request(
       'https://api.openai.com/v1/completions', {
       method: 'POST',
       headers: {
@@ -37,13 +37,14 @@ exports.handler = async (event) => {
       }
     })
 
-    console.log('Got response', { data })
+    const body = bodyStr && JSON.parse(bodyStr)
+    console.log('Got response', { body })
 
     return {
       statusCode: 200,
-      body: {
+      body: JSON.stringify({
         text: body.choices?.[0]?.text,
-      }
+      })
     }
   }
   catch (err) {

@@ -14,6 +14,7 @@ exports.handler = async (event) => {
   await ssm.putParameter({
     Name: GPT_API_PARAM_NAME,
     Value: apiKey,
+    Overwrite: true,
     Type: 'SecureString',
   }).promise()
 
