@@ -3,25 +3,28 @@ const { request } = require('https')
 module.exports = {
   GPT_API_KEY_ENV: 'GPT_API_KEY_PARAM',
 
-  request(url, { data, ...options }) {
+  request(url, { body, ...options }) {
     return new Promise((resolve, reject) => {
-      const req = request(options, res => {
-        const data = []
+      const req = request(url, options, res => {
+        const responseBody = []
 
         res
           .on('error', reject)
-          .on('data', chunk => data.push(chunk.toString('utf-8')))
+          .on('data', chunk => responseBody.push(chunk.toString('utf-8')))
           .on('end', () => {
             const result = {
               response: res,
-              data: data.join(''),
+              body: responseBody.join(''),
             }
 
             if (
               typeof res.statusCode !== 'number' ||
               res.statusCode >= 400
             ) {
-              reject(result)
+              const error = new Error(`${res.statusMessage ?? 'Request failed'}
+${result.body}`)
+
+              reject(Object.assign(error, result))
             }
             else {
               resolve(result)
@@ -30,12 +33,12 @@ module.exports = {
       })
         .on('error', reject)
 
-      if (data !== undefined) {
-        if (typeof data !== 'string') {
-          data = JSON.stringify(data)
+      if (body !== undefined) {
+        if (typeof body !== 'string') {
+          body = JSON.stringify(body)
         }
 
-        req.write(data, 'utf-8')
+        req.write(body, 'utf-8')
       }
 
       req.end()

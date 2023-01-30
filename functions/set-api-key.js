@@ -6,8 +6,7 @@ const {
 const GPT_API_PARAM_NAME = process.env[GPT_API_KEY_ENV]
 
 exports.handler = async (event) => {
-  console.log(event)
-  const apiKey = event.body.apiKey
+  const apiKey = JSON.parse(event.body).apiKey
 
   console.log('Got API key: ', apiKey.replace(/./g, '*'))
 

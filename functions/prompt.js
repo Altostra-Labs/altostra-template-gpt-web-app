@@ -8,16 +8,11 @@ const GPT_API_PARAM_NAME = process.env[GPT_API_KEY_ENV]
 const gptModel = process.env.GPT_MODEL
 
 exports.handler = async (event) => {
-  const prompt = event.body.prompt
+  const prompt = JSON.parse(event.body).prompt
 
   console.log('Prompt: ', prompt)
 
   const ssm = new SSM()
-  await ssm.putParameter({
-    Name: GPT_API_PARAM_NAME,
-    Value: apiKey,
-    Type: 'SecureString',
-  }).promise()
 
   const { Parameter: {
     Value: apiKey,
@@ -28,24 +23,37 @@ exports.handler = async (event) => {
 
   console.log('Got API KEY: ', apiKey.replace(/./g, '*'))
 
-  const { data } = await request(
-    'https://api.openai.com/v1/completions', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    data: {
-      model: gptModel,
-      prompt,
+  try {
+    const { data } = await request(
+      'https://api.openai.com/v1/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: {
+        model: gptModel,
+        prompt,
+      }
+    })
+
+    console.log('Got response', { data })
+
+    return {
+      statusCode: 200,
+      body: {
+        text: body.choices?.[0]?.text,
+      }
     }
-  })
+  }
+  catch (err) {
+    if (!err.response || err.response.statusCode !== 429) {
+      throw err
+    }
 
-  console.log('Got response', { data })
-
-  return {
-    statusCode: 200,
-    body: {
-      text: data.choices?.[0]?.text,
+    return {
+      statusCode: 429,
+      body: err.body
     }
   }
 }
