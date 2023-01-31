@@ -5,7 +5,7 @@ const normalized = apiUrl.endsWith('/')
   ? apiUrl
   : apiUrl + '/'
 
-const baseUrl = new URL('todo/', normalized);
+const baseUrl = new URL(normalized);
 
 export async function getStatus() {
   try {
@@ -15,7 +15,7 @@ export async function getStatus() {
   } catch (err) {
     console.error('Failed to get status', err)
   }
-} 
+}
 
 export async function install(apiKey) {
   try {
@@ -26,12 +26,12 @@ export async function install(apiKey) {
       },
       body: JSON.stringify(apiKey),
     });
-    
+
     throwIfError(response)
   } catch (err) {
     console.error('Failed to install', err)
   }
-} 
+}
 
 export async function prompt(text) {
   try {
@@ -42,13 +42,13 @@ export async function prompt(text) {
       },
       body: JSON.stringify(text),
     });
-    
+
     throwIfError(response)
     return await response.json()
   } catch (err) {
     console.error('Failed to prompt', err)
   }
-} 
+}
 
 function throwIfError(response) {
   if (!response.ok) {
