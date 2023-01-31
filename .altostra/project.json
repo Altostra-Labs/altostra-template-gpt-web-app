@@ -9,12 +9,12 @@
 			"version": "2019-10-24",
 			"connections": {
 				"FrontendCDN01": {
-					"StaticFiles01": {
+					"SiteFiles01": {
 						"type": "connection.dependency.cdn-storage",
 						"bucketRoot": "",
 						"route": "",
 						"from": "FrontendCDN01",
-						"to": "StaticFiles01"
+						"to": "SiteFiles01"
 					}
 				},
 				"ApiEndpoint03": {
@@ -75,7 +75,7 @@
 					},
 					"id": "FrontendCDN01"
 				},
-				"StaticFiles01": {
+				"SiteFiles01": {
 					"type": "resource.file-store",
 					"name": "static-files",
 					"accessLevel": "public-read",
@@ -85,7 +85,7 @@
 							"type": "files-source.project-dir"
 						}
 					],
-					"id": "StaticFiles01"
+					"id": "SiteFiles01"
 				},
 				"ApiGateway01": {
 					"type": "resource.api",
@@ -213,7 +213,7 @@
 							"y": 137.45001220703125,
 							"z": 0
 						},
-						"StaticFiles01": {
+						"SiteFiles01": {
 							"x": 522.7000122070312,
 							"y": 136.45001220703125,
 							"z": 0
