@@ -44,7 +44,10 @@ exports.handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         text: body.choices?.[0]?.text,
-      })
+      }),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
     }
   }
   catch (err) {
@@ -54,7 +57,10 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 429,
-      body: err.body
+      body: err.body,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
     }
   }
 }

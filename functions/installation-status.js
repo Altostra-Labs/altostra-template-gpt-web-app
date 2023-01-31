@@ -17,6 +17,9 @@ exports.handler = async () => {
     return {
       statusCode: 200,
       body: JSON.stringify({ isInstalled }),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
     }
   }
   catch (err) {
@@ -25,6 +28,9 @@ exports.handler = async () => {
     return {
       statusCode: 200,
       body: JSON.stringify({ isInstalled: false }),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
     }
   }
 }
