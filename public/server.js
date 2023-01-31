@@ -17,14 +17,14 @@ export async function getStatus() {
   }
 }
 
-export async function install(data) {
+export async function install(apiKey) {
   try {
     const response = await fetch(new URL('install', baseUrl), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ apiKey }),
     });
 
     throwIfError(response)
@@ -33,14 +33,14 @@ export async function install(data) {
   }
 }
 
-export async function prompt(data) {
+export async function prompt(message) {
   try {
     const response = await fetch(new URL('prompt', baseUrl), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ prompt: message }),
     });
 
     throwIfError(response)
