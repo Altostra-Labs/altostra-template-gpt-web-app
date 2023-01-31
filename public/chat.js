@@ -43,17 +43,18 @@ async function connect(event) {
   loader.style.display = "flex"
   connectDialog.style.display = "none";
 
-  await install()
+  await install({ apiKey: apiKeyField.value })
   overlay.style.display = "none";
 }
 
 async function sendMessage(event) {
   event.preventDefault();
   addMessage(messageField.value)
+  const messageText = messageField.value;
   messageField.value = '';
   sendMessageButton.disabled = true;
 
-  const response = await prompt()
+  const response = await prompt({ prompt: messageText })
   addMessage(response.text)
 }
 
