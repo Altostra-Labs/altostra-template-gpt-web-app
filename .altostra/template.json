@@ -1,0 +1,253 @@
+{
+  "description": "An Altostra template to create projects of a web application to enable simple access OpenAI GPT-3 models",
+  "blueprints": [
+    {
+      "version": "2019-10-24",
+      "connections": {
+        "FrontendCDN01": {
+          "StaticFiles01": {
+            "type": "connection.dependency.cdn-storage",
+            "bucketRoot": "",
+            "route": "",
+            "from": "FrontendCDN01",
+            "to": "StaticFiles01"
+          }
+        },
+        "ApiEndpoint03": {
+          "SetApiKey01": {
+            "type": "connection.trigger",
+            "from": "ApiEndpoint03",
+            "to": "SetApiKey01"
+          }
+        },
+        "ApiEndpoint02": {
+          "Prompt01": {
+            "type": "connection.trigger",
+            "from": "ApiEndpoint02",
+            "to": "Prompt01"
+          }
+        },
+        "ApiEndpoint01": {
+          "InstallationStatus01": {
+            "type": "connection.trigger",
+            "from": "ApiEndpoint01",
+            "to": "InstallationStatus01"
+          }
+        },
+        "SetApiKey01": {
+          "APIKeyParams01": {
+            "type": "connection.resource-access",
+            "accessLevel": "write-only",
+            "from": "SetApiKey01",
+            "to": "APIKeyParams01"
+          }
+        },
+        "Prompt01": {
+          "APIKeyParams01": {
+            "type": "connection.resource-access",
+            "accessLevel": "read-only",
+            "from": "Prompt01",
+            "to": "APIKeyParams01"
+          }
+        },
+        "InstallationStatus01": {
+          "APIKeyParams01": {
+            "type": "connection.resource-access",
+            "accessLevel": "read-only",
+            "from": "InstallationStatus01",
+            "to": "APIKeyParams01"
+          }
+        }
+      },
+      "resources": {
+        "FrontendCDN01": {
+          "type": "resource.cdn",
+          "name": "frontend-CDN",
+          "defaultRoot": "index.html",
+          "isSPA": false,
+          "tls": {
+            "useTLS": true,
+            "httpRedirection": true
+          },
+          "id": "FrontendCDN01"
+        },
+        "StaticFiles01": {
+          "type": "resource.file-store",
+          "name": "static-files",
+          "accessLevel": "public-read",
+          "filesSources": [
+            {
+              "path": "public",
+              "type": "files-source.project-dir"
+            }
+          ],
+          "id": "StaticFiles01"
+        },
+        "ApiGateway01": {
+          "type": "resource.api",
+          "name": "API-gateway",
+          "cors": {
+            "type": "api.cors.simple",
+            "origins": "*"
+          },
+          "endpoints": [
+            {
+              "type": "ref",
+              "id": "ApiEndpoint01"
+            },
+            {
+              "type": "ref",
+              "id": "ApiEndpoint02"
+            },
+            {
+              "type": "ref",
+              "id": "ApiEndpoint03"
+            }
+          ],
+          "id": "ApiGateway01"
+        },
+        "ApiEndpoint01": {
+          "type": "resource.api.endpoint",
+          "name": "api-endpoint",
+          "method": "GET",
+          "path": "/status",
+          "api": {
+            "type": "ref",
+            "id": "ApiGateway01"
+          },
+          "id": "ApiEndpoint01"
+        },
+        "ApiEndpoint02": {
+          "type": "resource.api.endpoint",
+          "name": "api-endpoint",
+          "method": "POST",
+          "path": "/prompt",
+          "api": {
+            "type": "ref",
+            "id": "ApiGateway01"
+          },
+          "id": "ApiEndpoint02"
+        },
+        "ApiEndpoint03": {
+          "type": "resource.api.endpoint",
+          "name": "api-endpoint",
+          "method": "POST",
+          "path": "/install",
+          "api": {
+            "type": "ref",
+            "id": "ApiGateway01"
+          },
+          "id": "ApiEndpoint03"
+        },
+        "InstallationStatus01": {
+          "type": "resource.compute.function",
+          "name": "installation-status",
+          "memory": 512,
+          "timeout": 6,
+          "isDefaultPrivateSubnets": false,
+          "isDefaultPublicSubnets": false,
+          "entryPoint": "functions/installation-status.handler",
+          "runtime": "nodejs16.x",
+          "packageType": "zip",
+          "layers": [],
+          "environment": {
+            "variables": {}
+          },
+          "id": "InstallationStatus01"
+        },
+        "SetApiKey01": {
+          "type": "resource.compute.function",
+          "name": "set-api-key",
+          "memory": 512,
+          "timeout": 6,
+          "isDefaultPrivateSubnets": false,
+          "isDefaultPublicSubnets": false,
+          "entryPoint": "functions/set-api-key.handler",
+          "runtime": "nodejs16.x",
+          "packageType": "zip",
+          "layers": [],
+          "environment": {
+            "variables": {}
+          },
+          "id": "SetApiKey01"
+        },
+        "Prompt01": {
+          "type": "resource.compute.function",
+          "name": "prompt",
+          "memory": 512,
+          "timeout": 6,
+          "isDefaultPrivateSubnets": false,
+          "isDefaultPublicSubnets": false,
+          "entryPoint": "functions/prompt.handler",
+          "runtime": "nodejs16.x",
+          "packageType": "zip",
+          "layers": [],
+          "environment": {
+            "variables": {
+              "GPT_MODEL": "text-davinci-003"
+            }
+          },
+          "id": "Prompt01"
+        },
+        "APIKeyParams01": {
+          "type": "resource.ssm",
+          "name": "api-key-params",
+          "parameters": [
+            {
+              "name": "gpt-api-key",
+              "isRecursive": false
+            }
+          ],
+          "id": "APIKeyParams01"
+        }
+      },
+      "metadata": {
+        "designer": {
+          "resourcePositions": {
+            "FrontendCDN01": {
+              "x": 165.70001220703125,
+              "y": 137.45001220703125,
+              "z": 0
+            },
+            "StaticFiles01": {
+              "x": 522.7000122070312,
+              "y": 136.45001220703125,
+              "z": 0
+            },
+            "ApiGateway01": {
+              "x": 109.70001220703125,
+              "y": 236.45001220703125,
+              "z": 0
+            },
+            "InstallationStatus01": {
+              "x": 384,
+              "y": 342,
+              "z": 0
+            },
+            "SetApiKey01": {
+              "x": 384,
+              "y": 224,
+              "z": 0
+            },
+            "Prompt01": {
+              "x": 384,
+              "y": 283,
+              "z": 0
+            },
+            "APIKeyParams01": {
+              "x": 683.7000122070312,
+              "y": 283,
+              "z": 0
+            }
+          }
+        }
+      },
+      "id": "gpt-webapp",
+      "name": "gpt-webapp",
+      "unsafe": false,
+      "globalEnvironmentVariables": {
+        "GPT_API_KEY_PARAM": "gpt-api-key"
+      }
+    }
+  ]
+}
