@@ -16,6 +16,10 @@ body {
   margin-right: 10px;
 }
 
+.input-field:focus-visible {
+  outline: none;
+}
+
 .btn {
   background-color: #5f5ff6;
   color: white;
@@ -58,19 +62,32 @@ body {
 }
 
 .connect-dialog {
+  display: none;
   position: fixed;
+  max-width: 650px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 4px;
-  display: none;
   z-index: 2;
 }
 
+.connect-info {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.connect-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
 .apiKey-field {
-  width: 300px;
   border: 1px solid #ddd;
 }
 

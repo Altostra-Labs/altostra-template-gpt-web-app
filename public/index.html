@@ -30,8 +30,14 @@
     </div>
 
     <div class="connect-dialog">
-      <form>
-        <input type="text" class="input-field apiKey-field" placeholder="GPT API KEY" onkeyup="onKeyUp('apiKey')"/>
+      <p class="connect-info">
+        Please insert an OpenAI API KEY.<br>
+        The key will be securely saved under your AWS account in the SSM parameter store.<br>
+        To create an OpenAI API KEY, follow these
+        <a href="https://platform.openai.com/docs/guides/production-best-practices/api-keys" target="_blank">instructions</a>.
+      </p>
+      <form class="connect-form">
+        <input type="text" class="input-field apiKey-field" placeholder="OpenAI API KEY" onkeyup="onKeyUp('apiKey')"/>
         <button class="btn connect-btn" type="submit" disabled>Connect</button>
       </form>
     </div>
