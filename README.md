@@ -19,6 +19,8 @@ high transfer speeds.
 as a SecureString.
     - One to check the existence of the API key in the AWS Systems Manager (SSM) Parameter Store.
 
+![Design](./docs/design.png)
+
 ---
 
 The website served by the CloudFront distribution first checks the existence of an OpenAI API key.
