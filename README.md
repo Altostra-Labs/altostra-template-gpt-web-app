@@ -58,7 +58,7 @@ To change the GPT-3 model, follow these instructions:
 4. Change the value of the variable named `GPT_MODEL`.
 5. Click on Save.
 
-#### Changing the name of the SSM parameter that stores the API key.
+#### Changing the name of the SSM parameter that stores the API key
 
 Multiple deployments of the project in the same region will use the same OpenAI API key.  
 In order to support more than one API key in the same region - you can change the name
