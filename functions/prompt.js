@@ -34,6 +34,7 @@ exports.handler = async (event) => {
       body: {
         model: gptModel,
         prompt,
+        max_tokens: 2048,
       }
     })
 
