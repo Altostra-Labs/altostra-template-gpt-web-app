@@ -19,7 +19,7 @@ high transfer speeds.
 as a SecureString.
     - One to check the existence of the API key in the AWS Systems Manager (SSM) Parameter Store.
 
-![Design](./docs/design.png)
+![Design](./images/docs/design.png)
 
 ---
 
@@ -71,7 +71,7 @@ follow these instructions:
 
 1. Open the project in VSCode.
 2. Click on the 3 dots in the upper right corner of the designer and then on `Globals` submenu.
-![Globals menu](./docs/globals.png)
+![Globals menu](./images/docs/globals.png)
 3. Change the value of the variable named `GPT_API_KEY_PARAM`.
 4. Click on Save.
 5. Click **on the icon** of the `api-key-params` SSM Parameters resource.
