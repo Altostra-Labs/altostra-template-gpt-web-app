@@ -50,10 +50,15 @@ alto deploy my-stack --push --env production
 
 #### Changing the GPT model that is being used
 
-To change the GPT model, follow these instructions:
+
+To change the GPT model, first review what
+[OpenAI textual models](https://platform.openai.com/docs/models/overview) are available.
+You can also get a comprehensive list using
+[OpenAI API](https://platform.openai.com/docs/api-reference/models/list).  
+After selecting a model, copy its ID and follow these instructions to set it as the application model:
 
 1. Open the project in VSCode.
-2. Click **on the icon** of the `prompt` lambda.
+2. Click **on the icon** of the `prompt` lambda resource. ![the 'prompt' lambda](./docs/prompt-lambda.png)
 3. Expand the `Environment Variables` section.
 4. Change the value of the variable named `GPT_MODEL`.
 5. Click on Save.
@@ -70,8 +75,7 @@ To change AWS Systems Manager (SSM) parameter that stores the OpenAI API key,
 follow these instructions:
 
 1. Open the project in VSCode.
-2. Click on the 3 dots in the upper right corner of the designer and then on `Globals` submenu.
-![Globals menu](./docs/globals.png)
+2. Open the project's [Global variables](https://docs.altostra.com/cloud-designer/global-environment).
 3. Change the value of the variable named `GPT_API_KEY_PARAM`.
 4. Click on Save.
 5. Click **on the icon** of the `api-key-params` SSM Parameters resource.
