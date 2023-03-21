@@ -1,11 +1,11 @@
-# GPT-3 App Template
+# GPT App Template
 
-An Altostra template for a web application that let users send prompts to one of the GPT-3 textual models.
+An Altostra template for a web application that let users send prompts to one of OpenAI textual models.
 
 ## Template content
 
 An Altostra template to create projects that can be deployed with a serverless web application
-that features a simple web UI for users to send prompts to a preselected OpenAI GPT-3 model.
+that features a simple web UI for users to send prompts to a preselected OpenAI GPT model.
 
 The infrastructure is managed using Amazon Web Services (AWS) and includes:
 
@@ -14,7 +14,7 @@ high transfer speeds.
 2. Amazon S3 bucket to store the static website content.
 3. Amazon REST API Gateway to create an HTTP API.
 4. Three AWS Lambda functions to handle requests to the REST API:
-    - One to handle the API requests to send prompts to the OpenAI GPT-3 model.
+    - One to handle the API requests to send prompts to the OpenAI GPT model.
     - One to store an OpenAI API key in the AWS Systems Manager (SSM) Parameter Store
 as a SecureString.
     - One to check the existence of the API key in the AWS Systems Manager (SSM) Parameter Store.
@@ -29,13 +29,13 @@ If the API key does not exist, the web application requests an API key from the 
 using the API Gateway and corresponding Lambda function.
 
 Once the API key exists, the web application lets the user enter a prompt and send it through
-the API Gateway to the corresponding Lambda function that sends it to the OpenAI GPT-3 model.
+the API Gateway to the corresponding Lambda function that sends it to the OpenAI GPT model.
 
 ### Options
 
 There are two environment variables that can be changed to change the behavior of the web application:
 
-- The GPT-3 model that is being used (defaults to `text-davinci-003`).
+- The GPT model that is being used (defaults to `text-davinci-003`).
 - The name of the AWS Systems Manager (SSM) parameter that stores the OpenAI API key
 (defaults to `gpt-api-key`).
 
@@ -48,9 +48,9 @@ Follow the provided instructions and then create a new version and deploy it
 alto deploy my-stack --push --env production
 ```
 
-#### Changing the GPT-3 model that is being used
+#### Changing the GPT model that is being used
 
-To change the GPT-3 model, follow these instructions:
+To change the GPT model, follow these instructions:
 
 1. Open the project in VSCode.
 2. Click **on the icon** of the `prompt` lambda.
