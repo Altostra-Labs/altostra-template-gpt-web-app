@@ -57,7 +57,7 @@ You can also get a comprehensive list using
 [OpenAI API](https://platform.openai.com/docs/api-reference/models/list).  
 After selecting a model, copy its ID and follow these instructions to set it as the application model:
 
-1. Copy OpenAI model ID
+1. Copy [OpenAI model ID](https://platform.openai.com/docs/models/overview)
 ![Copy OpenAI model ID](./docs/copy-openai-model-id.gif)
 2. Open the project in VSCode.
 3. In the Altostra Cloud Designer, open the edit form of the lambda called `prompt` and change
