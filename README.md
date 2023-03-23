@@ -63,7 +63,14 @@ After selecting a model, copy its ID and follow these instructions to set it as 
 3. In the Altostra Cloud Designer, open the edit form of the lambda called `prompt` and change
 the `GPT_MODEL` environment variable  (located in the Environment Variables section of lambda edit form)
 value by pasting the selected OpenAI model ID.
-![Edit the `prompt` lambda](./docs/edit-prompt-lambda.gif)
+<video
+  src="./docs/edit-prompt-lambda.mp4"
+  autoPlay={true}
+  loop={true}
+  muted={true}
+  width="850px"
+  disablePictureInPicture={true}
+  />
 4. Click Save.
 5. Create a new [project version](https://docs.altostra.com/howto/projects/deploy-project).
 6. Deploy a new project version by either 
