@@ -57,11 +57,18 @@ You can also get a comprehensive list using
 [OpenAI API](https://platform.openai.com/docs/api-reference/models/list).  
 After selecting a model, copy its ID and follow these instructions to set it as the application model:
 
-1. Open the project in VSCode.
-2. Click **on the icon** of the `prompt` lambda resource. ![the 'prompt' lambda](./docs/prompt-lambda.png)
-3. Expand the `Environment Variables` section.
-4. Change the value of the variable named `GPT_MODEL`.
-5. Click on Save.
+1. Copy OpenAI model ID
+![Copy OpenAI model ID](./docs/copy-openai-model-id.gif)
+2. Open the project in VSCode.
+3. In the Altostra Cloud Designer, open the edit form of the lambda called `prompt` and change
+the `GPT_MODEL` environment variable  (located in the Environment Variables section of lambda edit form)
+value by pasting the selected OpenAI model ID.
+![Edit the `prompt` lambda](./docs/edit-prompt-lambda.gif)
+4. Click Save.
+5. Create a new [project version](https://docs.altostra.com/howto/projects/deploy-project).
+6. Deploy a new project version by either 
+[creating a new stack](https://docs.altostra.com/howto/projects/deploy-project#create-a-new-stack) or
+[updating an existing stack](https://docs.altostra.com/howto/projects/deploy-project#update-an-existing-stack).
 
 #### Changing the name of the SSM parameter that stores the API key
 
