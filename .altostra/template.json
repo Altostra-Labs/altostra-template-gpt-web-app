@@ -245,6 +245,6 @@
     }
   ],
   "excludes": [
-    "docs"
+    "docs/**"
   ]
 }
