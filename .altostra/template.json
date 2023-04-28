@@ -243,5 +243,6 @@
         "GPT_API_KEY_PARAM": "gpt-api-key"
       }
     }
-  ]
+  ],
+  "exclude": "docs"
 }
