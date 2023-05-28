@@ -43,6 +43,8 @@ export async function prompt(message) {
       body: JSON.stringify({ prompt: message }),
     });
 
+    console.log('response', response)
+
     throwIfError(response)
     return await response.json()
   } catch (err) {
