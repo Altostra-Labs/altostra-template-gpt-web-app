@@ -49,27 +49,45 @@ async function connect(event) {
 
 async function sendMessage(event) {
   event.preventDefault();
-  addMessage(messageField.value)
+  addMessage(messageField.value, 'sender')
   const messageText = messageField.value;
   messageField.value = '';
   sendMessageButton.disabled = true;
+  let newMessage = ''
 
-  const response = await prompt(messageText)
-  addMessage(response.text)
+  try {
+    const response = await prompt(messageText)
+    newMessage = response.text
+  } catch (err) {
+    console.log('err', {...err})
+    if(err.response.type === 'insufficient_quota') {
+      newMessage = `
+        You exceeded your current quota. Please review your plan and billing details by visiting: 
+        <a href="https://platform.openai.com/account/usage" target="_blank">https://platform.openai.com/account/usage</a>.
+        To update your apiKey, please refer to the following guidelines: 
+        <a href="https://github.com/altostra/altostra-template-gpt-web-app#changing-the-name-of-the-ssm-parameter-that-stores-the-api-key" target="_blank">https://github.com/altostra/altostra-template-gpt-web-app#changing-the-name-of-the-ssm-parameter-that-stores-the-api-key</a>.
+      `
+    }
+  }
+
+  if(newMessage) {
+    addMessage(newMessage, 'response')
+  }
 }
 
-function addMessage(text) {
+function addMessage(text, className) {
   if (!text) {
     return;
   }
 
   const message = document.createElement('div');
-  message.classList.add('message');
+  message.classList.add('message', className);
   message.innerHTML = `<p>${text}</p>`;
   document.querySelector('.chat').appendChild(message);
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 }
 
-export function onKeyUp(field) {
+export function onInput(field) {
   if(field === 'apiKey') {
     connectButton.disabled = !apiKeyField.value.length
   }

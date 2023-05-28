@@ -47,6 +47,8 @@ export async function prompt(message) {
     return await response.json()
   } catch (err) {
     console.error('Failed to prompt', err)
+
+    throw err
   }
 }
 

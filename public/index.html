@@ -12,10 +12,10 @@
     <script src="./chat.js" type="module"></script>
 
     <script type="module">
-      import { loadAll, onKeyUp } from './chat.js'
+      import { loadAll, onInput } from './chat.js'
   
       document.addEventListener('DOMContentLoaded', async () => {
-        Object.assign(window, {  onKeyUp  })
+        Object.assign(window, {  onInput  })
   
         await loadAll().catch(console.error)
       })
@@ -38,7 +38,7 @@
         <a href="https://platform.openai.com/docs/guides/production-best-practices/api-keys" target="_blank">instructions</a>.
       </p>
       <form class="connect-form">
-        <input type="text" class="input-field apiKey-field" placeholder="OpenAI API KEY" onkeyup="onKeyUp('apiKey')"/>
+        <input type="text" class="input-field apiKey-field" placeholder="OpenAI API KEY" oninput="onInput('apiKey')"/>
         <button class="btn connect-btn" type="submit" disabled>Connect</button>
       </form>
     </div>
@@ -58,7 +58,7 @@
       <div class="chat"></div>
       <div class="form-container">
         <form class="chat-form">
-          <input type="text" class="input-field message-field" placeholder="Type a message..." onkeyup="onKeyUp('message')"/>
+          <input type="text" class="input-field message-field" placeholder="Type a message..." oninput="onInput('message')"/>
           <button class="btn send-message-btn" type="submit" disabled>Send</button>
         </form>
       </div>

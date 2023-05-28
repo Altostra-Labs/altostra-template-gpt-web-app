@@ -119,11 +119,24 @@ body {
 }
 
 .message {
-  background-color: white;
   padding: 5px 15px;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.message.sender {
+  background-color: white;
+}
+
+.message.response {
+  color: white;
+  background-color: #5f5ff6;
+}
+
+.message.response a {
+  color: white;
 }
 
 .form-container {
