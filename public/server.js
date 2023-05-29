@@ -10,7 +10,8 @@ const baseUrl = new URL(normalized);
 export async function getStatus() {
   try {
     const response = await fetch(new URL('status', baseUrl));
-    throwIfError(response)
+
+    await throwIfError(response)
     return await response.json()
   } catch (err) {
     console.error('Failed to get status', err)
@@ -27,7 +28,7 @@ export async function install(apiKey) {
       body: JSON.stringify({ apiKey }),
     });
 
-    throwIfError(response)
+    await throwIfError(response)
   } catch (err) {
     console.error('Failed to install', err)
   }
@@ -43,9 +44,7 @@ export async function prompt(message) {
       body: JSON.stringify({ prompt: message }),
     });
 
-    console.log('response', response)
-
-    throwIfError(response)
+    await throwIfError(response)
     return await response.json()
   } catch (err) {
     console.error('Failed to prompt', err)
@@ -54,12 +53,14 @@ export async function prompt(message) {
   }
 }
 
-function throwIfError(response) {
+async function throwIfError(response) {
   if (!response.ok) {
+    const responseData = await response.json()
+
     throw Object.assign(new Error(response.statusText), {
+      ...responseData.error,
       status: response.status,
       statusText: response.statusText,
-      response,
     })
   }
 }

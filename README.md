@@ -85,7 +85,20 @@ follow these instructions:
 2. Open the project's [Global variables](https://docs.altostra.com/cloud-designer/global-environment).
 3. Change the value of the variable named `GPT_API_KEY_PARAM`.
 4. Click on Save.
-5. Click **on the icon** of the `api-key-params` SSM Parameters resource.
+5. Click on the `api-key-params` SSM Parameters resource.
 6. Change the name of the sole parameter to match exactly the name you have typed for the
 `GPT_API_KEY_PARAM` global environment variable.
 7. Click on Save.
+
+#### Updating an Existing OpenAI API Key
+
+To update your OpenAI API key, you have two options: updating it directly in the AWS Systems Manager (SSM) through the AWS console or requesting a new API key.
+
+To request a new OpenAI API key, follow these instructions:
+
+1. Open the project in VSCode.
+2. Click on the `api-key-params` SSM Parameters resource.
+3. Delete the `gpt-api-key` parameter from the list of parameters.
+4. Click on Save.
+
+Once you have completed these steps, you can proceed to deploy the changes and provide the new API key for your project.

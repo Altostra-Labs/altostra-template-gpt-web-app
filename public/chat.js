@@ -59,13 +59,13 @@ async function sendMessage(event) {
     const response = await prompt(messageText)
     newMessage = response.text
   } catch (err) {
-    console.log('err', {...err})
-    if(err.response.type === 'insufficient_quota') {
+    if(err.type === 'insufficient_quota') {
       newMessage = `
-        You exceeded your current quota. Please review your plan and billing details by visiting: 
+        You exceeded your current openai quota. Please review your plan and billing details by visiting: 
         <a href="https://platform.openai.com/account/usage" target="_blank">https://platform.openai.com/account/usage</a>.
+        <br/>
         To update your apiKey, please refer to the following guidelines: 
-        <a href="https://github.com/altostra/altostra-template-gpt-web-app#changing-the-name-of-the-ssm-parameter-that-stores-the-api-key" target="_blank">https://github.com/altostra/altostra-template-gpt-web-app#changing-the-name-of-the-ssm-parameter-that-stores-the-api-key</a>.
+        <a href="https://github.com/altostra/altostra-template-gpt-web-app" target="_blank">https://github.com/altostra/altostra-template-gpt-web-app</a>.
       `
     }
   }
