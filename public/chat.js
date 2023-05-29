@@ -75,7 +75,7 @@ async function sendMessage(event) {
       newMessage = INSUFFICIENT_QUOTA_ERROR_MESSAGE
     }
     else { 
-      console.error(err)
+      console.error('Failed to prompt', err)
     }
   }
 

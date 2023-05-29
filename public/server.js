@@ -35,22 +35,16 @@ export async function install(apiKey) {
 }
 
 export async function prompt(message) {
-  try {
-    const response = await fetch(new URL('prompt', baseUrl), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ prompt: message }),
-    });
+  const response = await fetch(new URL('prompt', baseUrl), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ prompt: message }),
+  });
 
-    await throwIfError(response)
-    return await response.json()
-  } catch (err) {
-    console.error('Failed to prompt', err)
-
-    throw err
-  }
+  await throwIfError(response)
+  return await response.json()
 }
 
 async function throwIfError(response) {
