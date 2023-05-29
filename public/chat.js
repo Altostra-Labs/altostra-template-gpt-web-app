@@ -10,6 +10,18 @@ let connectButton
 let messageField
 let sendMessageButton
 
+const INSUFFICIENT_QUOTA_ERROR_MESSAGE = `
+  You exceeded your current openai quota. Please review your plan and billing details by visiting: 
+  <a href="https://platform.openai.com/account/usage" target="_blank">
+    https://platform.openai.com/account/usage
+  </a>.
+  <br/>
+  To update your API key, follow the steps 
+  <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/deleting-parameters.html" target="_blank">
+    https://docs.aws.amazon.com/systems-manager/latest/userguide/deleting-parameters.html
+  </a>.
+`
+
 export async function loadAll() {
   overlay = document.querySelector(".overlay");
   overlay.style.display = "flex";
@@ -60,13 +72,7 @@ async function sendMessage(event) {
     newMessage = response.text
   } catch (err) {
     if(err.type === 'insufficient_quota') {
-      newMessage = `
-        You exceeded your current openai quota. Please review your plan and billing details by visiting: 
-        <a href="https://platform.openai.com/account/usage" target="_blank">https://platform.openai.com/account/usage</a>.
-        <br/>
-        To update your apiKey, please refer to the following guidelines: 
-        <a href="https://github.com/altostra/altostra-template-gpt-web-app" target="_blank">https://github.com/altostra/altostra-template-gpt-web-app</a>.
-      `
+      newMessage = INSUFFICIENT_QUOTA_ERROR_MESSAGE
     }
   }
 
