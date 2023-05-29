@@ -16,7 +16,7 @@ const INSUFFICIENT_QUOTA_ERROR_MESSAGE = `
     https://platform.openai.com/account/usage
   </a>.
   <br/>
-  To update your API key, follow the steps 
+  To replace your API key, please follow these steps to delete the existing one:
   <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/deleting-parameters.html" target="_blank">
     https://docs.aws.amazon.com/systems-manager/latest/userguide/deleting-parameters.html
   </a>.
