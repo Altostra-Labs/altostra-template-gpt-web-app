@@ -74,6 +74,9 @@ async function sendMessage(event) {
     if(err.type === 'insufficient_quota') {
       newMessage = INSUFFICIENT_QUOTA_ERROR_MESSAGE
     }
+    else { 
+      console.error(err)
+    }
   }
 
   if(newMessage) {
