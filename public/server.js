@@ -10,7 +10,8 @@ const baseUrl = new URL(normalized);
 export async function getStatus() {
   try {
     const response = await fetch(new URL('status', baseUrl));
-    throwIfError(response)
+
+    await throwIfError(response)
     return await response.json()
   } catch (err) {
     console.error('Failed to get status', err)
@@ -27,35 +28,33 @@ export async function install(apiKey) {
       body: JSON.stringify({ apiKey }),
     });
 
-    throwIfError(response)
+    await throwIfError(response)
   } catch (err) {
     console.error('Failed to install', err)
   }
 }
 
 export async function prompt(message) {
-  try {
-    const response = await fetch(new URL('prompt', baseUrl), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ prompt: message }),
-    });
+  const response = await fetch(new URL('prompt', baseUrl), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ prompt: message }),
+  });
 
-    throwIfError(response)
-    return await response.json()
-  } catch (err) {
-    console.error('Failed to prompt', err)
-  }
+  await throwIfError(response)
+  return await response.json()
 }
 
-function throwIfError(response) {
+async function throwIfError(response) {
   if (!response.ok) {
+    const responseData = await response.json()
+
     throw Object.assign(new Error(response.statusText), {
+      ...responseData.error,
       status: response.status,
       statusText: response.statusText,
-      response,
     })
   }
 }
